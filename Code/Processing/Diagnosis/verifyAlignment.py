@@ -3,32 +3,35 @@ from rasterio.transform import Affine
 
 #Verifies the Boundary are same
 
-with rasterio.open('Dataset\Processed Data\Labels.tif') as src:
+with rasterio.open(r'Dataset\Processed Data\Labels.tif') as src:
     demShape = src.shape
     demCrs = src.crs
     demTransform = src.transform
     demBounds = src.bounds
     demRes = src.res
-    print("Label Info:")
+    print("Raster-1 Info:")
     print(f"  Shape: {demShape}")
     print(f"  CRS: {demCrs}")
     print(f"  Resolution: {demRes}")
     print(f"  Bounds: {demBounds}")
     print(f"  Transform:\n{demTransform}")
+    print(f"  Bands:{src.count}")
+    print(f"  Data Type:{src.dtypes[0]}")
 
-
-with rasterio.open(r'Dataset\Processed Data\2021\fused_stack.tif') as src:
+with rasterio.open(r'Dataset\Processed Data\slope.tif') as src:
     opt_shape = src.shape
     opt_crs = src.crs
     opt_transform = src.transform
     opt_bounds = src.bounds
     opt_res = src.res
-    print("Fused Stack Info:")
+    print("Raster-2 Info:")
     print(f"  Shape: {opt_shape}")
     print(f"  CRS: {opt_crs}")
     print(f"  Resolution: {opt_res}")
     print(f"  Bounds: {opt_bounds}")
     print(f"  Transform:\n{opt_transform}")
+    print(f"  Bands:{src.count}")
+    print(f"  Data Type:{src.dtypes[0]}")
 
 
 print(f"\nCRS: {demCrs == opt_crs}")
