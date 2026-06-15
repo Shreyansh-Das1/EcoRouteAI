@@ -13,9 +13,9 @@ graph = nx.grid_2d_graph(row,col)
 
 for u , v in graph.edges():
     costU = costSurface[u[0], u[1]] # 0th index is row and 1st index is column
-    costV = costSurface[v[0], v[0]]
+    costV = costSurface[v[0], v[1]]
     if costU == 9999 or costV ==9999:
-        graph[u][v]['weight'] = float('inf')
+        graph[u][v]['weight'] = float('inf')    
     else:
         graph[u][v]['weight'] = (costU + costV) / 2.0
 
