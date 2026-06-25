@@ -65,44 +65,22 @@ LULC Cost Metrics (60% Weight)
 
 | LULC Class | Cost Rating | Engineering & Environmental Rationale |
 | --- | --- | --- |
-| **50. Barren Land / Wasteland** | 1 | Ideal Path: Flat, open terrain; minimal environmental impact and low preparation costs.
-
- |
-| **20. Shrubland / 30. Grassland** | 2 | Highly Favorable: Low-lying vegetation requires minimal clearing without canopy interference.
-
- |
-| **40. Agricultural / Cropland** | 5 | Moderate Friction: High land acquisition, crop compensation costs, and harvest cycle dependencies.
-
- |
-| **10. Dense Forest / Vegetation** | 8 | High Friction: Demands heavy tree felling, strict environmental clearances, and long-term right-of-way (ROW) maintenance.
-
- |
-| **60. Built-up / Urban Area** | 10 | Extreme Friction: Tremens land costs, safety hazards, high legal hurdles, and community resistance.
-
- |
-| **Water Bodies** | **9999** | <br>**Exclusion Zone:** Constructing towers in deep water is structurally unfeasible and cost-prohibitive.
-
- |
+| **50. Barren Land / Wasteland** | 1 | Ideal Path: Flat, open terrain; minimal environmental impact and low preparation costs.|
+| **20. Shrubland / 30. Grassland** | 2 | Highly Favorable: Low-lying vegetation requires minimal clearing without canopy interference.|
+| **40. Agricultural / Cropland** | 5 | Moderate Friction: High land acquisition, crop compensation costs, and harvest cycle dependencies.|
+| **10. Dense Forest / Vegetation** | 8 | High Friction: Demands heavy tree felling, strict environmental clearances, and long-term right-of-way (ROW) maintenance.|
+| **60. Built-up / Urban Area** | 10 | Extreme Friction: Tremens land costs, safety hazards, high legal hurdles, and community resistance.|
+| **Water Bodies** | **9999** | <br>**Exclusion Zone:** Constructing towers in deep water is structurally unfeasible and cost-prohibitive.|
 
 Slope Cost Metrics (40% Weight) 
 
 | Slope (Degrees) | Cost Rating |
 | --- | --- |
-| $\le 5^\circ$ | 1 
-
- |
-| $\le 10^\circ$ | 3 
-
- |
-| $\le 15^\circ$ | 6 
-
- |
-| $\le 25^\circ$ | 9 
-
- |
-| $> 25^\circ$ | <br>**9999 (Impassable)** 
-
- |
+| $\le 5^\circ$ | 1 |
+| $\le 10^\circ$ | 3 |
+| $\le 15^\circ$ | 6 |
+| $\le 25^\circ$ | 9 |
+| $> 25^\circ$ | <br>**9999 (Impassable)** |
 
 ---
 
