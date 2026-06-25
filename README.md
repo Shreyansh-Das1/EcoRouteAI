@@ -10,21 +10,10 @@ The core objective of EcoRoute AI is to automate the extraction of an optimal co
 
 ### Key Technical Specs
 
-* 
-**Total Graph Nodes:** ~3.24 million pixels 
-
-
-* 
-**Total Graph Edges:** ~6.47 million edges 
-
-
-* 
-**Graph Footprint:** 361 MB serialized on disk 
-
-
-
+* **Total Graph Nodes:** ~3.24 million pixels 
+* **Total Graph Edges:** ~6.47 million edges 
+* **Graph Footprint:** 361 MB serialized on disk 
 ---
-
 ## System Architecture & Routing Process
 
 The routing mechanism handles data seamlessly between geographic space and graph coordinate space:
@@ -34,29 +23,17 @@ The routing mechanism handles data seamlessly between geographic space and graph
 
 ```
 
-1. 
-**Frontend Input:** The user interacts with the map interface to select coordinate-based start and end points.
+1. **Frontend Input:** The user interacts with the map interface to select coordinate-based start and end points.
 
+2. **Backend Transformation:** Geodetic coordinates are mapped into raw pixel space coordinates based on the dataset's CRS.
 
-2. 
-**Backend Transformation:** Geodetic coordinates are mapped into raw pixel space coordinates based on the dataset's CRS.
+3. **Node Mapping:** The backend identifies the nearest matching graph nodes corresponding to those pixel space positions.
 
+4. **Routing Engine:** An optimized $A^*$ search or Dijkstra algorithm computes the path over the cost grid matrix.
 
-3. 
-**Node Mapping:** The backend identifies the nearest matching graph nodes corresponding to those pixel space positions.
+5. **Path Conversion:** The node-based pixel path is transformed back into geospatial vector geometry.
 
-
-4. 
-**Routing Engine:** An optimized $A^*$ search or Dijkstra algorithm computes the path over the cost grid matrix.
-
-
-5. 
-**Path Conversion:** The node-based pixel path is transformed back into geospatial vector geometry.
-
-
-6. 
-**Frontend Rendering:** The optimized corridor is overlaid as a vector layer on the map UI.
-
+6. **Frontend Rendering:** The optimized corridor is overlaid as a vector layer on the map UI.
 
 
 ---
@@ -65,29 +42,18 @@ The routing mechanism handles data seamlessly between geographic space and graph
 
 To avoid discrepancies caused by temporal vegetation changes, the pipeline utilizes historical datasets to ensure alignment across features.
 
-* 
-**Digital Elevation Model (DEM):** Copernicus DEM GLO-30 provides a base structural resolution of $30\text{m} \times 30\text{m}$.
+* **Digital Elevation Model (DEM):** Copernicus DEM GLO-30 provides a base structural resolution of $30\text{m} \times 30\text{m}$.
 
+* **LULC Labels:** ESA WorldCover 2021 labels are fetched from TerraScope.
 
-* 
-**LULC Labels:** ESA WorldCover 2021 labels are fetched from TerraScope.
-
-
-* 
-**Coordinate Reference System (CRS):** All data layers are reprojected, aligned, and tightly cropped to the target Area of Interest (AOI) bounding box using `EPSG:32645` (WGS 84 / UTM zone 45N).
-
+* **Coordinate Reference System (CRS):** All data layers are reprojected, aligned, and tightly cropped to the target Area of Interest (AOI) bounding box using `EPSG:32645` (WGS 84 / UTM zone 45N).
 
 
 ### Feature Extraction
 
-* 
-**Slope Generation:** Terrain slope gradients are mathematically computed in degrees by applying the Pythagorean theorem across the spatial resolution step against the elevation variations from the DEM (`arctan` over the directional gradient).
+* **Slope Generation:** Terrain slope gradients are mathematically computed in degrees by applying the Pythagorean theorem across the spatial resolution step against the elevation variations from the DEM (`arctan` over the directional gradient).
 
-
-* 
-**Label Mapping:** Raw ESA WorldCover classes are re-indexed to localized integer IDs for lightweight matrix manipulations: `{10:1, 20:2, 30:3, 40:4, 50:5, 60:6, 80:7, 90:8}`.
-
-
+* **Label Mapping:** Raw ESA WorldCover classes are re-indexed to localized integer IDs for lightweight matrix manipulations: `{10:1, 20:2, 30:3, 40:4, 50:5, 60:6, 80:7, 90:8}`.
 
 ---
 
@@ -146,14 +112,9 @@ The aligned cost raster matrix is mapped directly into a NetworkX graph workspac
 
 ### Routing Performance Summary
 
-* 
-**Dijkstra's Algorithm:** Blatantly explores uniformly in all directions. It handles heavily constrained environments with numerous dense "9999" barriers effectively, preventing heuristic misdirection.
+* **Dijkstra's Algorithm:** Blatantly explores uniformly in all directions. It handles heavily constrained environments with numerous dense "9999" barriers effectively, preventing heuristic misdirection.
 
-
-* 
-**$A^*$ Search (Manhattan Distance):** Introduces a directional search pattern towards the goal. On clear, less restricted corridors, it achieves a ~28.5% reduction in search time compared to Dijkstra.
-
-
+* **$A^*$ Search (Manhattan Distance):** Introduces a directional search pattern towards the goal. On clear, less restricted corridors, it achieves a ~28.5% reduction in search time compared to Dijkstra.
 
 ---
 
@@ -161,12 +122,9 @@ The aligned cost raster matrix is mapped directly into a NetworkX graph workspac
 
 Due to the size of the uncompressed raster-derived network graphs, the following hardware thresholds must be observed:
 
-* 
-**RAM (Minimum):** **6 GB** (The compressed, serialized `.gpickle` graph environment requires approximately 5.2 GB of system memory to load into the active workspace, peaking around 7 GB during scratch generation).
+* **RAM (Minimum):** **6 GB** (The compressed, serialized `.gpickle` graph environment requires approximately 5.2 GB of system memory to load into the active workspace, peaking around 7 GB during scratch generation).
 
-
-* 
-**Disk Storage:** ~400 MB allocated space for graph binaries and geospatial layers.
+* **Disk Storage:** ~400 MB allocated space for graph binaries and geospatial layers.
 
 
 * 
