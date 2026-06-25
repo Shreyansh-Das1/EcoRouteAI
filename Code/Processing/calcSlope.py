@@ -1,6 +1,5 @@
 import rasterio
 import numpy as np
-from rasterio.enums import Resampling
 
 
 elevationPath = r"Dataset\DEM\DEM_32645.tif"
